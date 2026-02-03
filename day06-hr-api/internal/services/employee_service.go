@@ -41,10 +41,6 @@ func (s *employeeService) GetAll(ctx context.Context) ([]dto.EmployeeResponse, e
 }
 
 func (s *employeeService) GetByName(ctx context.Context, name string) ([]dto.EmployeeResponse, error) {
-	if name == "" {
-		return s.GetAll(ctx)
-	}
-
 	name = strings.TrimSpace(name)
 	nameParts := strings.Fields(name)
 
