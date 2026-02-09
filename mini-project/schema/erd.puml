@@ -1,0 +1,1212 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+' MAIN REFERENCE == APLIKASI FIFGO MOBILE (Honda), BAF Mobile (Yamaha) & WEB NUSANTARA SAKTI GROUP (Honda)
+
+' LOOKUP TABLE 
+
+entity user_roles {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of user_roles
+  code values:
+  - customer
+  - officer
+  - driver
+  - admin
+end note
+
+entity genders {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+}
+
+note right of genders
+  code values:
+  - male
+  - female
+end note
+
+entity order_statuses {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of order_statuses
+    code values:
+    - draft
+    - processed
+    - pending
+    - cancelled
+    - closed
+end note
+
+entity document_types {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    is_required: boolean
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of document_types
+    code values:
+    - ktp
+    - kk
+    - slip_gaji
+    - listrik
+    - pbb
+end note
+
+entity financing_types {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of financing_types
+    code values:
+    - conventional
+    - sharia
+end note
+
+entity discount_types {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of discount_types
+    code values:
+    - fixed
+    - percentage
+end note
+
+entity commission_types {
+    - id : int <<PK>>
+    --
+    - code : string <<UK>>
+    --
+    - name
+    - modified_at : datetime
+}
+
+note right of commission_types
+    code values:
+    - fixed
+    - percentage
+end note
+
+entity product_types {
+    - id : int <<PK>>
+    --
+    - code : string <<UK>>
+    --
+    - name : string
+    - created_at : datetime
+    - modified_at : datetime
+}
+
+note right of product_types
+    code values:
+    - gear
+    - matic
+    - electric
+    - hybrid
+end note
+
+entity payment_methods {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    is_active : boolean
+    created_at: datetime
+    modified_at : datetime
+}
+
+note right of payment_methods
+    code values:
+    - cash
+    - transfer
+    - virtual_account
+end note
+
+entity payment_types {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of payment_types
+    code values:
+    - down_payment
+    - admin_fee
+    - provision
+    - insurance
+end note
+
+entity installment_statuses {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    name : string
+}
+
+note right of installment_statuses
+    code values:
+    - paid
+    - unpaid
+end note
+
+entity bank_types {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+}
+
+note right of bank_types
+    code values:
+    - conventional
+    - sharia
+end note
+
+entity insurance_types {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of insurance_types
+    code values:
+    - comprehensive
+    - tlo
+end note
+
+entity scoring_types {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    description : text
+    created_at : datetime
+    modified_at : datetime  
+}
+
+note right of scoring_types
+    code values:
+    - slik_ojk
+    - duplicate_check
+    - dsr_check
+end note
+
+entity scoring_statuses {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+}
+
+note right of scoring_statuses
+    code values:
+    - pass
+    - fail
+    - under_review
+end note
+
+entity house_ownership_types {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of house_ownership_types
+    code values:
+    - owned
+    - rented
+    - family_owned
+    - others
+end note
+
+entity house_conditions {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of house_conditions
+    code values:
+    - good
+    - fair
+    - poor
+end note
+
+entity income_sources {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of income_sources
+    code values:
+    - salary
+    - business
+    - other
+end note
+
+entity survey_recommendations {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of survey_recommendations
+    code values:
+    - approved
+    - rejected
+    - under_review
+    - request_additional
+end note
+
+entity payment_statuses {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+}
+
+note right of payment_statuses
+    code values:
+    - pending
+    - verified
+    - rejected
+end note
+
+entity dealer_payment_statuses {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+}
+
+note right of dealer_payment_statuses
+    code values:
+    - pending
+    - paid
+    - confirmed
+end note
+
+entity home_visit_statuses {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+}
+
+note right of home_visit_statuses
+    code values:
+    - scheduled
+    - under_visit
+    - completed
+    - cancelled
+end note
+
+entity delivery_statuses {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+}
+
+note right of delivery_statuses
+    code values:
+    - scheduled
+    - on_delivery
+    - delivered
+    - cancelled
+end note
+
+entity delivery_evidence_types {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string  
+}
+
+note right of delivery_evidence_types
+    code values:
+    - motor_photo
+    - customer_photo
+    - signature
+    - odometer
+    - stnk
+    - others
+end note
+
+entity notification_types {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string 
+}
+
+note right of notification_types
+    code values:
+    - order_update
+    - payment_reminder
+    - document_required
+    - others
+end note
+
+entity workflow_roles {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of workflow_roles
+    code values:
+    - system
+    - officer
+    - driver
+    - customer
+end note
+
+entity workflow_step_statuses {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+note right of workflow_step_statuses
+    code values:
+    - pending
+    - in_progress
+    - completed
+    - failed
+    - skipped
+end note
+
+' MAIN TABLE
+
+entity users {
+    id : bigint <<PK>>
+    --
+    user_role_id : int <<FK>>
+    --
+    email : string <<UK>>
+    first_phone_number : string <<UK>>
+    second_phone_number : string <<UK>>
+    --
+    first_name : string
+    last_name : string <<nullable>>
+    is_active : boolean
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity user_details {
+    id : bigint <<PK>>
+    --
+    user_id : bigint <<FK>>
+    gender_id : int <<FK>>
+    province_id : int <<FK>>
+    city_id : bigint <<FK>>
+    district_id : bigint <<FK>>
+    income_source_id : int <<FK>>
+    --
+    nik : string <<UK>>
+    --
+    birth_date : datetime
+    address : text
+    postal_code : string
+    latitude  : decimal
+    longitude : decimal
+    profile_photo_url : string <<nullable>>
+    created_at : datetime
+    modified_at: datetime
+}
+
+entity officers {
+    id : bigint <<PK>>
+    --
+    user_id : bigint <<FK>>
+    branch_id : int <<FK>>
+    supervisor_id : int <<FK>> <<nullable>>
+    --
+    max_concurrent_order : int {default=10}
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity drivers {
+    id : bigint <<PK>>
+    --
+    user_id : bigint <<FK>>
+    branch_id : int <<FK>>
+    --
+    vehicle_number : string
+    is_available: boolean
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity provinces {
+    id : int <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity cities {
+    id : bigint <<PK>>
+    --
+    province_id : int <<FK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity districts {
+    id : bigint <<PK>>
+    --
+    city_id : bigint <<FK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity branches {
+    id : int <<PK>>
+    --
+    city_id : bigint <<FK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    address : text
+    phone_number : string
+    latitude  : decimal
+    longitude : decimal
+    is_active : boolean
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity products {
+  id : bigint <<PK>>
+  --
+  product_type_id : int <<FK>>
+  --
+  model : string
+  year : int
+  variant : string
+  cc : int
+  color : string
+  otr_price : decimal
+  description : text
+  features : json
+  specifications : json
+  is_active : boolean
+  created_at : datetime
+  modified_at : datetime
+}
+
+entity product_images {
+    id : bigint <<PK>>
+    --
+    product_id : bigint <<FK>>
+    --
+    image_url : string
+    is_primary : boolean
+    display_order : int
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity product_stocks {
+    id : bigint <<PK>>
+    --
+    product_id : bigint <<FK>>
+    branch_id : int <<FK>>
+    --
+    available_units : int
+    reserved_units : int
+    sold_units : int
+    updated_at : datetime
+}
+
+entity financing_packages {
+    id : bigint <<PK>>
+    --
+    financing_type_id : bigint <<FK>>
+    province_id : int <<FK>> nullable
+    city_id : bigint <<FK>> nullable
+    --
+    tenor_months : int
+    interest_rate : decimal <<nullable>>
+    margin_rate : decimal <<nullable>>
+    min_dp_percentage : decimal
+    max_dp_percentage : decimal
+    admin_fee : decimal
+    provision_fee : decimal
+    is_active : boolean
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity insurance_packages {
+    id : bigint <<PK>>
+    --
+    insurance_type_id : int <<FK>>
+    --
+    name : string
+    provider : string
+    base_rate : decimal
+    is_active : boolean
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity promotions {
+    id : bigint <<PK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    description : text
+    discount_type_id : int <<FK>>
+    --
+    discount_value : decimal
+    min_otr_price : decimal <<nullable>>
+    max_discount : decimal <<nullable>>
+    --
+    valid_from : datetime
+    valid_until : datetime
+    --
+    max_usage : int <<nullable>>
+    current_usage : int {default=0}
+    --
+    is_active : boolean
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity promotion_products {
+    id : bigint <<PK>>
+    --
+    promotion_id : bigint <<FK>>
+    product_id : bigint <<FK>>
+}
+
+entity orders {
+    id : bigint <<PK>>
+    --
+    order_number : string <<UK>>
+    --
+    customer_id : bigint <<FK>>
+    order_status_id : int <<FK>>
+    current_workflow_step_id : bigint <<FK>> <<nullable>>
+    --
+    assigned_officer_id : bigint <<FK>> <<nullable>>
+    assigned_driver_id : bigint <<FK>> <<nullable>>
+    --
+    customer_name : string
+    customer_phone : string
+    customer_email : string <<nullable>>
+    customer_nik : string <<nullable>>
+    customer_address : text
+    customer_latitude : decimal <<nullable>>
+    customer_longitude : decimal <<nullable>>
+    --
+    submitted_at : datetime <<nullable>>
+    approved_at : datetime <<nullable>>
+    rejected_at : datetime <<nullable>>
+    paid_at : datetime <<nullable>>
+    delivered_at : datetime <<nullable>>
+    completed_at : datetime <<nullable>>
+    cancelled_at : datetime <<nullable>>
+    --
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity order_details {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    product_id : bigint <<FK>>
+    financing_package_id : bigint <<FK>>
+    insurance_package_id : bigint <<FK>>
+    promotion_id : bigint <<FK>> <<nullable>>
+    --
+    product_brand : string
+    product_model : string
+    product_variant : string
+    product_color : string
+    --
+    otr_price : decimal
+    down_payment : decimal
+    discount_amount : decimal {default=0}
+    admin_fee : decimal {default=0}
+    provision_fee : decimal {default=0}
+    insurance_fee : decimal {default=0}
+    total_financing : decimal
+    monthly_installment : decimal
+    tenor_months : int
+    --
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity installments {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    installment_status_id : int <<FK>>
+    --
+    installment_number : int
+    due_date : date
+    amount : decimal
+    paid_at : datetime <<nullable>>
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity order_documents {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    document_type_id : int <<FK>>
+    --
+    file_url : string
+    file_name : string
+    file_size : bigint
+    --
+    is_verified : boolean
+    verified_by : bigint <<FK>> <<nullable>>
+    verified_at : datetime <<nullable>>
+    notes : text <<nullable>>
+    --
+    uploaded_at : datetime
+    created_at : datetime
+}
+
+entity referral_codes {
+    id : bigint <<PK>>
+    --
+    officer_id : bigint <<FK>>
+    commission_type_id: int <<FK>>
+    --
+    code : string <<UK>>
+    --
+    name : string
+    description : string <<nullable>>
+    max_usage : int <<nullable>>
+    commission_value : decimal
+    current_usage : int
+    valid_from : datetime
+    valid_until : datetime
+    is_active : boolean
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity order_referrals {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    referral_code_id : bigint <<FK>>
+    officer_id : bigint <<FK>>
+    --
+    commission_amount : decimal
+    paid_at : datetime <<nullable>>
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity commission_payments {
+    id : bigint <<PK>>
+    --
+    officer_id : bigint <<FK>>
+    payment_method_id : int <<FK>>
+    bank_id : int <<FK>> <<nullable>>
+    paid_by : bigint <<FK>>
+    --
+    total_order : int 
+    total_commission_amount : int
+    account_number : string <<nullable>>
+    payment_evidence_image_url : string
+    paid_at : datetime
+    created_at : datetime
+    modified_at : datetime
+}
+
+entity workflow_templates {
+    id : bigint <<PK>>
+    --
+    name : string
+    description : text <<nullable>>
+    --
+    is_active : boolean
+    is_default : boolean
+    --
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity workflow_steps {
+    id : bigint <<PK>>
+    --
+    workflow_template_id : bigint <<FK>>
+    --
+    step_code : string
+    step_name : string
+    step_description : text <<nullable>>
+    --
+    step_order : int
+    workflow_role_id : int <<FK>>
+    --
+    is_mandatory : boolean
+    auto_complete : boolean
+    --
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity workflow_step_subtasks {
+    id : bigint <<PK>>
+    --
+    workflow_step_id : bigint <<FK>>
+    --
+    subtask_code : string
+    subtask_name : string
+    --
+    subtask_order : int
+    is_mandatory : boolean
+    --
+    created_at : datetime
+}
+
+entity order_workflow_progress {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    workflow_step_id : bigint <<FK>>
+    workflow_step_status_id : int <<FK>>
+    --
+    assigned_to : bigint <<FK>> <<nullable>>
+    --
+    started_at : datetime <<nullable>>
+    completed_at : datetime <<nullable>>
+    notes : text <<nullable>>
+    --
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity order_workflow_subtask_progress {
+    id : bigint <<PK>>
+    --
+    order_workflow_progress_id : bigint <<FK>>
+    workflow_step_subtask_id : bigint <<FK>>
+    workflow_step_status_id : int <<FK>>
+    --
+    result_data : json <<nullable>>
+    completed_at : datetime <<nullable>>
+    created_at : datetime
+}
+
+entity scoring_results {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    scoring_type_id : int <<FK>>
+    scoring_status_id : int <<FK>>
+    --
+    request_data : json
+    response_data : json
+    score : decimal
+    --
+    checked_at : datetime
+    created_at : datetime
+}
+
+entity slik_ojk_logs {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    --
+    customer_nik : string
+    api_request : json
+    api_response : json
+    --
+    slik_score : decimal
+    credit_history : json
+    outstanding_loans : json
+    is_blacklisted : boolean
+    --
+    checked_at : datetime
+    created_at : datetime
+}
+
+entity home_visits {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    officer_id : bigint <<FK>>
+    home_visit_status_id : int <<FK>>
+    house_ownership_type_id : int <<FK>>
+    house_condition_id : int <<FK>>
+    survey_recommendation_id : int <<FK>>
+    --
+    scheduled_date : date
+    visit_date : date <<nullable>>
+    --
+    customer_address : text
+    latitude : decimal
+    longitude : decimal
+    --
+    created_at : datetime
+    updated_at : datetime
+}
+
+
+entity banks {
+    id : bigint <<PK>>
+    --
+    code : string <<UK>>
+    name : string
+    bank_type_id : int <<FK>>
+    --
+    is_active : boolean
+}
+
+entity payments {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    payment_type_id : int <<FK>>
+    payment_method_id : int <<FK>>
+    bank_id : bigint <<FK>> <<nullable>>
+    payment_status_id : int <<FK>>
+    --
+    amount : decimal
+    virtual_account_number : string <<nullable>>
+    payment_proof_url : string <<nullable>>
+    --
+    verified_by : bigint <<FK>> <<nullable>>
+    verified_at : datetime <<nullable>>
+    paid_at : datetime <<nullable>>
+    --
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity dealer_payments {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    dealer_id : bigint <<FK>>
+    dealer_payment_status_id : int <<FK>>
+    --
+    po_number : string
+    amount : decimal
+    payment_date : date
+    payment_proof_url : string
+    --
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity dealers {
+    id : bigint <<PK>>
+    --
+    code : string <<UK>>
+    name : string
+    address : text
+    city_id : bigint <<FK>>
+    phone : string
+    email : string
+    --
+    is_active : boolean
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity deliveries {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    driver_id : bigint <<FK>>
+    delivery_status_id : int <<FK>>
+    --
+    scheduled_date : date
+    delivery_date : date <<nullable>>
+    --
+    customer_address : text
+    latitude : decimal
+    longitude : decimal
+    --
+    notes : text <<nullable>>
+    --
+    created_at : datetime
+    updated_at : datetime
+}
+
+entity delivery_evidences {
+    id : bigint <<PK>>
+    --
+    delivery_id : bigint <<FK>>
+    delivery_evidence_type_id : int <<FK>>
+    --
+    file_url : string
+    notes : text <<nullable>>
+    --
+    uploaded_at : datetime
+    created_at : datetime
+}
+
+entity motor_handovers {
+    id : bigint <<PK>>
+    --
+    order_id : bigint <<FK>>
+    delivery_id : bigint <<FK>>
+    --
+    keys_count : int
+    has_service_book : boolean
+    has_bpkb : boolean
+    has_stnk_temp : boolean
+    has_invoice : boolean
+    --
+    odometer_reading : int
+    --
+    customer_signature_url : string
+    driver_signature_url : string
+    handover_photo_url : string
+    --
+    handover_at : datetime
+    created_at : datetime
+}
+
+entity notifications {
+    id : bigint <<PK>>
+    --
+    user_id : bigint <<FK>>
+    notification_type_id : int <<FK>>
+    --
+    title : string
+    message : text
+    action_url : string <<nullable>>
+    --
+    is_read : boolean
+    read_at : datetime <<nullable>>
+    --
+    created_at : datetime
+}
+
+' 
+' RELATIONS
+'
+
+provinces ||--o{ cities
+cities ||--o{ districts
+cities ||--o{ branches
+cities ||--o{ user_details
+cities ||--o{ dealers
+
+user_roles ||--o{ users
+users ||--o| user_details
+users ||--o| officers
+users ||--o| drivers
+users ||--o| notifications
+users ||--o{ order_documents
+users ||--o{ payments
+users ||--o{ commission_payments
+users ||--o{ order_workflow_progress
+
+genders ||--o{ user_details
+provinces ||--o{ user_details
+districts ||--o{ user_details
+
+branches ||--o{ officers
+branches ||--o{ drivers
+branches ||--o{ product_stocks
+
+officers ||--o{ officers
+officers ||--o{ referral_codes
+officers ||--o{ order_referrals
+officers ||--o{ commission_payments
+officers ||--o{ home_visits
+officers ||--o{ orders
+
+drivers ||--o{ orders
+drivers ||--o{ deliveries
+
+product_types ||--o{ products
+products ||--o{ product_images
+products ||--o{ product_stocks
+products ||--o{ order_details
+products ||--o{ promotion_products
+
+financing_types ||--o{ financing_packages
+provinces ||--o{ financing_packages
+cities ||--o{ financing_packages
+financing_packages ||--o{ order_details
+
+insurance_types ||--o{ insurance_packages
+insurance_packages ||--o{ order_details
+
+bank_types ||--o{ banks
+banks ||--o{ payments
+banks ||--o{ commission_payments
+
+users ||--o{ orders
+order_statuses ||--o{ orders
+orders ||--|| order_details
+orders ||--o{ order_documents
+orders ||--o{ order_referrals
+orders ||--o{ scoring_results
+orders ||--o{ slik_ojk_logs
+orders ||--o{ home_visits
+orders ||--o{ payments
+orders ||--o{ dealer_payments
+orders ||--o{ deliveries
+orders ||--o{ motor_handovers
+orders ||--o{ notifications
+orders ||--o{ installments
+
+document_types ||--o{ order_documents
+
+workflow_templates ||--o{ workflow_steps
+workflow_steps ||--o{ workflow_step_subtasks
+workflow_steps ||--o{ order_workflow_progress
+workflow_steps ||--o{ order_workflow_subtask_progress
+workflow_roles ||--o{ workflow_steps
+workflow_step_statuses ||--o{ order_workflow_progress
+workflow_step_statuses ||--o{ order_workflow_subtask_progress
+order_workflow_progress ||--o{ order_workflow_subtask_progress
+workflow_step_subtasks ||--o{ order_workflow_subtask_progress
+
+scoring_types ||--o{ scoring_results
+scoring_statuses ||--o{ scoring_results
+
+home_visit_statuses ||--o{ home_visits
+installment_statuses ||--o{ installments
+
+officers ||--o{ referral_codes
+commission_types ||--o{ referral_codes
+referral_codes ||--o{ order_referrals
+officers ||--o{ order_referrals
+officers ||--o{ commission_payments
+income_sources ||--o{ user_details
+
+product_types ||--o{ products
+products ||--o{ product_images
+products ||--o{ product_stocks
+products ||--o{ order_details
+products ||--o{ promotion_products
+
+payment_types ||--o{ payments
+payment_methods ||--o{ payments
+payment_methods ||--o{ commission_payments
+payment_statuses ||--o{ payments
+
+dealer_payment_statuses ||--o{ dealer_payments
+dealers ||--o{ dealer_payments
+
+house_ownership_types ||--o{ home_visits
+house_conditions ||--o{ home_visits
+survey_recommendations ||--o{ home_visits
+
+delivery_statuses ||--o{ deliveries
+deliveries ||--o{ delivery_evidences
+deliveries ||--o{ motor_handovers
+delivery_evidence_types ||--o{ delivery_evidences
+
+notification_types ||--o{ notifications
+
+discount_types ||--o{ promotions
+promotions ||--o{ promotion_products
+promotions ||--o{ order_details
+
+@enduml
